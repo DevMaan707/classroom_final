@@ -111,9 +111,9 @@ func HandleData(c *gin.Context, client *mongo.Client) {
 
 	//Limiting the search results to only 5 Rooms
 
-	var length = 5
-	if len(rooms) < 5 {
-		length = len(rooms) - 1
+	var length = len(rooms)
+	if len(rooms) > 5 {
+		length = 5
 	}
 
 	//Creating interface which consists of list of rooms and the length of the list
