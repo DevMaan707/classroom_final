@@ -169,23 +169,24 @@ func HandleLogin(client *mongo.Client, c *gin.Context) {
 
 	if givenPassword != details[1] {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid Credentials"})
-	}
+	} else {
+		expiration := time.Now().Add(time.Hour * 200)
 
-	expiration := time.Now().Add(time.Hour * 200)
+		claims := &model.Claims{
+			Username: givenUsername,
+			StandardClaims: jwt.StandardClaims{
+				ExpiresAt: expiration.Unix(),
+			},
+		}
+		var jwt_Key = []byte("secret_key")
+		token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+		tokenString, err := token.SignedString(jwt_Key)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err})
+		}
+		c.JSON(http.StatusOK, gin.H{"token": tokenString})
 
-	claims := &model.Claims{
-		Username: givenUsername,
-		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: expiration.Unix(),
-		},
 	}
-	var jwt_Key = []byte("secret_key")
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	tokenString, err := token.SignedString(jwt_Key)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
-	}
-	c.JSON(http.StatusOK, gin.H{"token": tokenString})
 
 }
 func HandleSignup(client *mongo.Client, c *gin.Context) {
