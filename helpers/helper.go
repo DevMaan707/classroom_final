@@ -23,7 +23,7 @@ func Find(collection_forReserve, collection *mongo.Collection, hour int, Block s
 	//Describing the filter
 
 	filter := bson.M{
-		strconv.Itoa(hour): bson.M{"$regex": "(TRAINING|LAB)$"},
+		strconv.Itoa(hour): bson.M{"$regex": "(TRAINING|LAB|SPORTS)$"},
 		"Day_Key":          Day,
 	}
 
