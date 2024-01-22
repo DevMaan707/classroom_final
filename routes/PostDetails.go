@@ -47,7 +47,7 @@ func HandleData(c *gin.Context, client *mongo.Client) {
 
 		//Getting the search data from mongoDB in "rooms"
 
-		rooms = helper.Find(collectionReserve, collection, payload.HourSegment, payload.Block, payload.Day)
+		rooms = helper.Find(collectionReserve, collection, payload.HourSegment, payload.Block, payload.Day, payload.NumberofHours)
 
 	} else if payload.Block == "B" {
 
@@ -57,7 +57,7 @@ func HandleData(c *gin.Context, client *mongo.Client) {
 
 		//Getting the search data from mongoDB in "rooms"
 
-		rooms = helper.Find(collectionReserve, collection, payload.HourSegment, payload.Block, payload.Day)
+		rooms = helper.Find(collectionReserve, collection, payload.HourSegment, payload.Block, payload.Day, payload.NumberofHours)
 
 	} else if payload.Block == "C" {
 
@@ -67,7 +67,7 @@ func HandleData(c *gin.Context, client *mongo.Client) {
 
 		//Getting the search data from mongoDB in "rooms"
 
-		rooms = helper.Find(collectionReserve, collection, payload.HourSegment, payload.Block, payload.Day)
+		rooms = helper.Find(collectionReserve, collection, payload.HourSegment, payload.Block, payload.Day, payload.NumberofHours)
 
 	} else if payload.Block == "D" {
 
@@ -77,7 +77,7 @@ func HandleData(c *gin.Context, client *mongo.Client) {
 
 		//Getting the search data from mongoDB in "rooms"
 
-		rooms = helper.Find(collectionReserve, collection, payload.HourSegment, payload.Block, payload.Day)
+		rooms = helper.Find(collectionReserve, collection, payload.HourSegment, payload.Block, payload.Day, payload.NumberofHours)
 
 	} else if payload.Block == "H" {
 
@@ -87,7 +87,7 @@ func HandleData(c *gin.Context, client *mongo.Client) {
 
 		//Getting the search data from mongoDB in "rooms"
 
-		rooms = helper.Find(collectionReserve, collection, payload.HourSegment, payload.Block, payload.Day)
+		rooms = helper.Find(collectionReserve, collection, payload.HourSegment, payload.Block, payload.Day, payload.NumberofHours)
 	} else if payload.Block == "E" {
 
 		//Getting Collection
@@ -96,7 +96,7 @@ func HandleData(c *gin.Context, client *mongo.Client) {
 
 		//Getting the search data from mongoDB in "rooms"
 
-		rooms = helper.Find(collectionReserve, collection, payload.HourSegment, payload.Block, payload.Day)
+		rooms = helper.Find(collectionReserve, collection, payload.HourSegment, payload.Block, payload.Day, payload.NumberofHours)
 
 	} else if payload.Block == "All" {
 
@@ -105,7 +105,7 @@ func HandleData(c *gin.Context, client *mongo.Client) {
 
 		//Getting the search data from mongoDB in "rooms"
 
-		rooms = helper.Find(collectionReserve, collection, payload.HourSegment, payload.Block, payload.Day)
+		rooms = helper.Find(collectionReserve, collection, payload.HourSegment, payload.Block, payload.Day, payload.NumberofHours)
 
 	}
 

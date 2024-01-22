@@ -7,10 +7,11 @@ import (
 
 // Struct defining the data which will be received by the backend from app
 type Details struct {
-	Block       string `json:"block"`
-	RoonType    string `json:"classroom"`
-	Day         int    `json:"day"`
-	HourSegment int    `json:"hours"`
+	Block         string `json:"block"`
+	RoonType      string `json:"classroom"`
+	Day           int    `json:"day"`
+	HourSegment   int    `json:"hours"`
+	NumberofHours int    `json:"no_hours"`
 }
 
 type ColumnsData struct {

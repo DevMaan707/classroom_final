@@ -12,7 +12,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func Find(collection_forReserve, collection *mongo.Collection, hour int, Block string, Day int) []string {
+func Find(collection_forReserve, collection *mongo.Collection, hour int, Block string, Day int, Num_hours int) []string {
 
 	fmt.Printf("HourSegment = %d\nBlock = %s\nDay= %d\n", hour, Block, Day)
 
@@ -21,10 +21,50 @@ func Find(collection_forReserve, collection *mongo.Collection, hour int, Block s
 	}
 
 	//Describing the filter
+	var filter = bson.M{}
+	if Num_hours == 1 {
+		filter = bson.M{
+			strconv.Itoa(hour): bson.M{"$regex": "(TRAINING|LAB|SPORTS)$"},
 
-	filter := bson.M{
-		strconv.Itoa(hour): bson.M{"$regex": "(TRAINING|LAB|SPORTS)$"},
-		"Day_Key":          Day,
+			"Day_Key": Day,
+		}
+	} else if Num_hours == 2 {
+
+		if hour <= 5 {
+			filter = bson.M{
+				strconv.Itoa(hour):     bson.M{"$regex": "(TRAINING|LAB|SPORTS)$"},
+				strconv.Itoa(hour + 1): bson.M{"$regex": "(TRAINING|LAB|SPORTS)$"},
+				"Day_Key":              Day,
+			}
+		} else {
+			filter = bson.M{
+				strconv.Itoa(hour): bson.M{"$regex": "(TRAINING|LAB|SPORTS)$"},
+
+				"Day_Key": Day,
+			}
+		}
+	} else if Num_hours == 3 {
+		if hour <= 4 {
+			filter = bson.M{
+				strconv.Itoa(hour):     bson.M{"$regex": "(TRAINING|LAB|SPORTS)$"},
+				strconv.Itoa(hour + 1): bson.M{"$regex": "(TRAINING|LAB|SPORTS)$"},
+				strconv.Itoa(hour + 2): bson.M{"$regex": "(TRAINING|LAB|SPORTS)$"},
+				"Day_Key":              Day,
+			}
+		} else if hour <= 5 {
+			filter = bson.M{
+				strconv.Itoa(hour):     bson.M{"$regex": "(TRAINING|LAB|SPORTS)$"},
+				strconv.Itoa(hour + 1): bson.M{"$regex": "(TRAINING|LAB|SPORTS)$"},
+				"Day_Key":              Day,
+			}
+
+		} else {
+			filter = bson.M{
+				strconv.Itoa(hour): bson.M{"$regex": "(TRAINING|LAB|SPORTS)$"},
+
+				"Day_Key": Day,
+			}
+		}
 	}
 
 	//Initiating the Find Operation
