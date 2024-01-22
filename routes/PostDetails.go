@@ -159,7 +159,13 @@ func HandleLogin(client *mongo.Client, c *gin.Context) {
 	}
 	var givenUsername = credentials.Username
 	var givenPassword = credentials.Password
+
+	fmt.Printf("Given Username\n = %s", givenUsername)
+	fmt.Printf("Given password\n = %s", givenPassword)
+
 	var details []string = helper.CheckUserPassword(collectionCreds, givenUsername)
+
+	fmt.Printf("Real Password = %s\n", details[1])
 
 	if givenPassword != details[1] {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid Credentials"})
