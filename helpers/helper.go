@@ -156,6 +156,7 @@ func CheckUserPassword(collection *mongo.Collection, givenUsername string) []str
 	var Received models.ReceivedCredentials
 	cursor.Decode(&Received)
 	fmt.Println("Sending data back")
+	fmt.Printf("Password Received = %s\n", Received.Password)
 	return []string{Received.Name, Received.Password}
 
 }

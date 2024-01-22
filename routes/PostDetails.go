@@ -160,8 +160,8 @@ func HandleLogin(client *mongo.Client, c *gin.Context) {
 	var givenUsername = credentials.Username
 	var givenPassword = credentials.Password
 
-	fmt.Printf("Given Username\n = %s", givenUsername)
-	fmt.Printf("Given password\n = %s", givenPassword)
+	fmt.Printf("Given Username = %s\n", givenUsername)
+	fmt.Printf("Given password = %s\n", givenPassword)
 
 	var details []string = helper.CheckUserPassword(collectionCreds, givenUsername)
 
