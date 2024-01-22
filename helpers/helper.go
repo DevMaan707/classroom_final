@@ -133,7 +133,6 @@ func UpdateReserve(collection *mongo.Collection, Hour int, Room_No string) (succ
 }
 
 func CheckUserPassword(collection *mongo.Collection, givenUsername string) []string {
-
 	fmt.Printf("Data :\nUsername = %s\n", givenUsername)
 
 	fmt.Println("Applying Filter")
@@ -153,10 +152,18 @@ func CheckUserPassword(collection *mongo.Collection, givenUsername string) []str
 	if cursor.RemainingBatchLength() == 0 {
 		return []string{"false", "false"}
 	}
+
 	var Received models.ReceivedCredentials
-	cursor.Decode(&Received)
+	if cursor.Next(context.Background()) {
+		err := cursor.Decode(&Received)
+		if err != nil {
+			log.Fatal(err)
+		}
+	} else {
+		log.Fatal("Failed to fetch user data")
+	}
+
 	fmt.Println("Sending data back")
 	fmt.Printf("Password Received = %s\n", Received.Password)
 	return []string{Received.Name, Received.Password}
-
 }
