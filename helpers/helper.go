@@ -154,10 +154,8 @@ func CheckUserPassword(collection *mongo.Collection, givenUsername string) []str
 		return []string{"false", "false"}
 	}
 	var Received models.ReceivedCredentials
-	err = cursor.Decode(&Received)
-	if err != nil {
-		log.Fatal("Invalid Request.. check CredentialsModel")
-	}
+	cursor.Decode(&Received)
+
 	return []string{Received.Name, Received.Password}
 
 }
