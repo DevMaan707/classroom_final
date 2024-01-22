@@ -50,7 +50,7 @@ type Claims struct {
 type ReceivedCredentials struct {
 	ID       primitive.ObjectID `bson:"_id"`
 	Serial   int                `bson:"S_No"`
-	Email    string             `bson:"Email"`
 	Name     string             `bson:"Name"`
+	Email    string             `bson:"Email"`
 	Password string             `bson:"Password"`
 }

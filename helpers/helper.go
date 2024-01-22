@@ -134,6 +134,9 @@ func UpdateReserve(collection *mongo.Collection, Hour int, Room_No string) (succ
 
 func CheckUserPassword(collection *mongo.Collection, givenUsername string) []string {
 
+	fmt.Printf("Data :\nUsername = %s\n", givenUsername)
+
+	fmt.Println("Applying Filter")
 	filter := bson.M{
 		"Email": givenUsername,
 	}
@@ -142,6 +145,9 @@ func CheckUserPassword(collection *mongo.Collection, givenUsername string) []str
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	fmt.Println("Cursor Count:", cursor.RemainingBatchLength())
+
 	defer cursor.Close(context.Background())
 
 	if cursor.RemainingBatchLength() == 0 {
