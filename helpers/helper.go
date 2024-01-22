@@ -14,14 +14,16 @@ import (
 
 func Find(collection_forReserve, collection *mongo.Collection, hour int, Block string, Day int, Num_hours int) []string {
 
-	fmt.Printf("HourSegment = %d\nBlock = %s\nDay= %d\n", hour, Block, Day)
+	fmt.Printf("HourSegment = %d\nBlock = %s\nDay= %d Num_Hours = %d\n", hour, Block, Day, Num_hours)
 
 	if err := collection.Database().Client().Ping(context.Background(), nil); err != nil {
 		log.Fatal("Failed to ping MongoDB:", err)
 	}
 
 	//Describing the filter
-	var filter = bson.M{}
+	var filter = bson.M{strconv.Itoa(hour): bson.M{"$regex": "(TRAINING|LAB|SPORTS)$"},
+
+		"Day_Key": Day}
 	if Num_hours == 1 {
 		filter = bson.M{
 			strconv.Itoa(hour): bson.M{"$regex": "(TRAINING|LAB|SPORTS)$"},
