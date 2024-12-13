@@ -20,7 +20,6 @@ func Find(collection_forReserve, collection *mongo.Collection, hour int, Block s
 		log.Fatal("Failed to ping MongoDB:", err)
 	}
 
-	//Describing the filter
 	var filter = bson.M{strconv.Itoa(hour): bson.M{"$regex": "(TRAINING|LAB|SPORTS)$"},
 
 		"Day_Key": Day}
@@ -68,8 +67,6 @@ func Find(collection_forReserve, collection *mongo.Collection, hour int, Block s
 			}
 		}
 	}
-
-	//Initiating the Find Operation
 	fmt.Println("Initiating Filter")
 	cursor, err := collection.Find(context.Background(), filter)
 
@@ -80,16 +77,12 @@ func Find(collection_forReserve, collection *mongo.Collection, hour int, Block s
 	fmt.Println("Got cursor , Searching values: ")
 
 	defer cursor.Close(context.Background())
-
-	//Checking the length of the cursor
 	fmt.Println("Cursor Count:", cursor.RemainingBatchLength())
 
-	//Defining slices
 	var ResRooms []string
 	var ResHour []int
 
 	if collection_forReserve != nil {
-		//Getting all Reserved Data
 		cursorReserved, err := collection_forReserve.Find(context.Background(), bson.D{})
 		if err != nil {
 			log.Fatal(err)
@@ -112,11 +105,9 @@ func Find(collection_forReserve, collection *mongo.Collection, hour int, Block s
 
 	}
 
-	//Iterating through the results
 	var rooms []string
 	var data models.Received
 
-	//Trying to iterate through the received data
 	for cursor.Next(context.Background()) {
 
 		fmt.Println("Decoding the json")
@@ -126,7 +117,6 @@ func Find(collection_forReserve, collection *mongo.Collection, hour int, Block s
 			log.Fatal(err)
 		}
 
-		//printing the object ID just incase
 		fmt.Println(data.ID)
 
 		if slices.Contains(ResHour, hour) {
@@ -141,11 +131,10 @@ func Find(collection_forReserve, collection *mongo.Collection, hour int, Block s
 
 	}
 
-	//Iterating through the rooms just incase
 	for _, room := range rooms {
 		fmt.Println(room)
 	}
-	//Returning the slice back to routes/PostDetails.go
+
 	return rooms
 
 }

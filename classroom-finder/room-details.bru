@@ -1,0 +1,21 @@
+meta {
+  name: room-details
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/room-details
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "block": "A",
+    "classroom": "Classroom",
+    "day": 6,
+    "hours": 5,
+    "no_hours": 1
+  }
+}

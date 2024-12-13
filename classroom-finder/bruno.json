@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "classroom-finder",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

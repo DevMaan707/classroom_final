@@ -5,7 +5,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-// Struct defining the data which will be received by the backend from app
 type Details struct {
 	Block         string `json:"block"`
 	RoonType      string `json:"classroom"`
@@ -17,8 +16,6 @@ type Details struct {
 type ColumnsData struct {
 	Columns map[string]string
 }
-
-//Struct defining the data which will be received by the backend from mongoDB
 
 type Received struct {
 	ID      primitive.ObjectID `bson:"_id"`
