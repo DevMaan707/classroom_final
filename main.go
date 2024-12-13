@@ -10,18 +10,12 @@ import (
 )
 
 func main() {
-
-	//Making DB connection
 	client, err := DB.ConnectDB()
 
 	if err != nil {
 		log.Fatal("Failed To connect to MongoDB: ", err)
 	}
-
-	//Creating a router
 	router := gin.Default()
-
-	//creating routes
 
 	router.GET("/test", func(c *gin.Context) {
 		fmt.Println("Success")
@@ -42,7 +36,5 @@ func main() {
 	router.POST("/signup", func(c *gin.Context) {
 		route.HandleSignup(client, c)
 	})
-
-	//starting the router
-	router.Run()
+	router.Run(":6919")
 }
